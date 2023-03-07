@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../../lib/prisma";
+import allowCors from '../../../utils/cors';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'GET') {
         try {
             const contacts = await prisma.contact.findMany({})
@@ -28,3 +29,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
 }
+
+
+export default allowCors(handler);
